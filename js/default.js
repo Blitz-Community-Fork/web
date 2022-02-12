@@ -70,6 +70,22 @@ function navigation( href ) {
     router()
 }
 
+// Load file via XHR
+function loadfile( filename, callback ) {
+    var xhr = new XMLHttpRequest()
+    //var dom = document.getElementById( 'content' )
+    
+    xhr.onreadystatechange = function ( e ) { 
+        if ( xhr.readyState == 4 && xhr.status == 200 ) {
+            callback( xhr.responseText )
+        }
+    }
+    
+    xhr.open( "GET", filename, true )
+    xhr.setRequestHeader( 'Accept', 'text/html' )
+    xhr.send()
+}
+
 // Load a template via XHR
 function loadTemplate( filename ) {
     var xhr = new XMLHttpRequest()
