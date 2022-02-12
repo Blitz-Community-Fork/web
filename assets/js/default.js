@@ -122,10 +122,6 @@ function show_view( data, args ) {
     console.log( "COMPONENTS:")
     var components = document.querySelectorAll( "[component]" )
 
-    if( components.length==0) break
-    if( !components ) break
-    console.log( "LEVEL:"+i+","+components.length )
-
     components.forEach(element => {
         console.log( ":"+element.id )
 
