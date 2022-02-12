@@ -7,12 +7,13 @@ html,body {
 	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
+    background-color: var(--Background);
 }
 
 h1,h2,h3,h4,h5,h6 {
 	margin: 0;
 	font-weight: 500;
-	color: #131313;
+	color: var(--OnBackground);
 }
 h1 { font-size: 70px; }
 h2 { font-size: 36px; }
@@ -23,7 +24,7 @@ h6 { font-size: 16px; }
 
 p {
 	font-size: 14px;
-	color: #878787;
+	color: var(--OnBackground);
 	line-height: 2;
 }
 
@@ -46,4 +47,14 @@ ul,ol {
 	padding: 0;
 	margin: 0;
 }
+
+/* Theme colours */
+
+
+.error {
+    padding:4px;
+    background-color: var(--Error);
+    color: var(--OnError);
+}
+
 

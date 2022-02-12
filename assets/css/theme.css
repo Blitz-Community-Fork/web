@@ -1,0 +1,38 @@
+/*  
+**  (c) Copyright Blitz Community 2022
+**  Author Si Dunford (Scaremonger)
+*/
+
+/* DEFINE COLOURS THAT ARE USED THROUGHOUT THE WEBSITE
+**
+** Please refer to Google Material Design
+** https://material.io/design/color/the-color-system.html#color-theme-creation
+**
+** Use them in your style sheet like this:
+**
+**  .error {
+**    background-color: var(--Error);
+**    color: var(--OnError);
+**  }
+*/
+
+:root {
+
+  --Primary: #6200ee;
+  --Secondary: #03dac6;
+  --PrimaryVariant: #3700b3;
+  --SecondaryVariant: #018786;
+
+  --Background: #ffffff;
+  --Surface: #ffffff;
+  --Error: #b00020;
+
+  /* Text */
+  --OnPrimary: #ffffff;
+  --OnSecondary: #000000;
+
+  --OnBackground: #000000;
+  --OnSurface: #000000;
+  --OnError: #ffffff;
+
+}
