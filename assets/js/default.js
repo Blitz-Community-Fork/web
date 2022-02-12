@@ -92,11 +92,9 @@ function show_component( data, args, depth=0 ){
     // BEWARE THIS CAN CAUSE CONTINOUS LOOP
 return
 
-   console.log( "COMPONENTS:")
+/*   console.log( "COMPONENTS:")
    var components = content.querySelectorAll( "[component]" )
 
-   if( components.length==0) break
-   if( !components ) break
    console.log( "LEVEL:"+i+","+components.length )
 
    components.forEach(element => {
@@ -104,7 +102,7 @@ return
 
        loadFile( "assets/components/"+element.id+".html", show_component, element )
    });
-  
+*/
 }
 
 // Navigates to a new page
