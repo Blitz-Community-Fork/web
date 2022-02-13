@@ -17,7 +17,6 @@
 */
 
 :root {
-
   --Primary: #6200ee;
   --Secondary: #03dac6;
   --PrimaryVariant: #3700b3;
@@ -35,4 +34,14 @@
   --OnSurface: #000000;
   --OnError: #ffffff;
 
+  /* Showcase Timer */
+  --ShowcaseTimer: 2000;
 }
+
+body {
+  background-color: var(--Background);
+  background-image: url("../img/background.png");
+  background-repeat: no-repeat;
+  background-position: right 50px top 125px;
+}
+

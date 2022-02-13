@@ -1,0 +1,44 @@
+<style>
+header {
+    background-color: var(--Primary);
+    color: var(--OnPrimary);
+    margin-bottom: 25px;
+    height:100px;
+}
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+header li {
+  float: left;
+}
+li a, li img {
+    display: block;
+    color: var(--OnPrimary);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+header li a:hover {
+    background-color: var(--Secondary);
+}
+header .right {
+    float:right;
+}
+</style>
+
+<template>
+<ul>
+    <li><img src="img/logo.png" alt="Blitz Community"></li>
+    <li><a href="test.html">Home</a></li>
+    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/wiki">Wiki</a></li>
+    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/blob/main/code%20archive">Code archive</a></li>
+    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/discussions">Discussions board</a></li>
+    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/discussions/categories/tutorials">Tutorials</a></li>
+    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/discussions/categories/worklogs">Worklogs</a></li>
+    <li><a target="_blank" href="https://blitzmax.org/" rel="nofollow">Official website</a></li>
+    <li class="right"><a href="#about">About</a></li>
+</ul>
+</template>

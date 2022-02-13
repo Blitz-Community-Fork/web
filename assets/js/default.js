@@ -20,7 +20,7 @@ window.onload = function( e ){
     console.log( "window.onload" )
     document.title = "Welcome - Blitz Community Website"
     //
-    loadTemplate( "example" )
+    ///loadTemplate( "example" )
 
     // Set up navigation
 //    document.addEventListener( "click", function(e) {
@@ -85,8 +85,9 @@ function show_component( data, args, depth=0 ){
     var content = document.getElementById( args.id )
     content.removeAttribute("component");
     content.innerHTML = ""
-    if( style ) content.append( style )
-    if( template ) content.append( template.content )
+    if( style ) content.appendChild( style )
+//    if( template ) content.appendChild( template.content )
+    if( template ) content.appendChild( template.content.cloneNode( true) )
 
    // Deal with component sub-components
     // BEWARE THIS CAN CAUSE CONTINOUS LOOP
@@ -114,13 +115,16 @@ function show_view( data, args ) {
 
     var content = document.getElementById( "content" )
     content.innerHTML = ""
-    if( style ) content.append( style )
-    if( template ) content.append( template.content )
+    if( style ) content.appendChild( style )
+    if( template ) content.appendChild( template.content )
+    //if( template ) content.appendChild( document.importNode( template, true) )
 
     // Deal with PAGE components
 
     console.log( "COMPONENTS:")
     var components = document.querySelectorAll( "[component]" )
+
+    var timestamp = +new Date;
 
     components.forEach(element => {
         console.log( ":"+element.id )
@@ -148,6 +152,7 @@ function loadFile( filename, callback, args ) {
     
     xhr.open( "GET", filename, true )
     xhr.setRequestHeader( 'Accept', 'text/html' )
+    xhr.setRequestHeader( 'Cache-Control', 'max-age=0' )
     xhr.send()
 }
 
