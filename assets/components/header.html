@@ -1,15 +1,26 @@
 <style>
 header {
     background-color: var(--Primary);
+    background-image: url("assets/img/logo.png");
+    background-repeat: no-repeat;
+    background-position: left 5px top 5px;
     color: var(--OnPrimary);
     margin-bottom: 25px;
     height:100px;
 }
+header #title {
+    padding-left: 100px;
+    height: 48px;
+    line-height:48px;
+    color: var(--OnPrimary);
+}
 header ul {
+    background-color: var(--PrimaryVariant);
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    margin-left: 100px;
 }
 header li {
   float: left;
@@ -30,8 +41,10 @@ header .right {
 </style>
 
 <template>
+<h4 id="title">Blitz Community</h4>
+<nav id="navbar">
 <ul>
-    <li><img src="img/logo.png" alt="Blitz Community"></li>
+    <li></li>
     <li><a href="test.html">Home</a></li>
     <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/wiki">Wiki</a></li>
     <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/blob/main/code%20archive">Code archive</a></li>
@@ -41,4 +54,5 @@ header .right {
     <li><a target="_blank" href="https://blitzmax.org/" rel="nofollow">Official website</a></li>
     <li class="right"><a href="#about">About</a></li>
 </ul>
+</nav>
 </template>
