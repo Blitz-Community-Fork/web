@@ -1,17 +1,76 @@
-<style></style>
+<style>
+content {
+    max-width:1400px;
+    margin-top:80px;
+}    
+</style>
 
 <template>
 <script>
 console.log( "HOMEPAGE LOADED" )
+
+// Attach arrive() and Leave to page if required
+//
+// page.arrive = function(){}
+// page.leave = function(){}
+
 </script>
 
 <header id="header" component></header>
 
-<div id="showcase" component></div>
+<section id="container" class="w3-container w3-content" style="margin-top:160px">
+    <!-- Grid Start -->
+    <div class="w3-row">
 
-<footer id="footer" component></footer>
+    <!-- Left Column -->
+    <div class="w3-col m3">
 
+      <div id="links" component></div>
+      <div id="external-links" component></div>
+      <div id="languages" component></div>
+      <div id="example-alert" component></div>
+      <div id="example" component></div>
+      <div id="weather" component></div>
 
+    </div><!-- Left Column Ends-->
 
+    <!-- Middle Column -->
+    <div class="w3-col m7">
+    <div class="w3-row-padding">
+    <div class="w3-col m12">
+
+        <div id="blitz" component></div>
+
+        <div id="showcase" component></div>
+        <div id="example-post-1" component></div>
+        <div id="example-post-2" component></div>
+        <div id="example-post-3" component></div>
+
+    </div>
+    </div>      
+    </div><!-- Middle Column Ends -->
+
+    <!-- Right Column -->
+    <div class="w3-col m2">
+
+      <div id="feature" component></div>
+      <div id="example-event-1" component></div>
+      <div id="example-friend-request" component></div>
+      <div id="example-advert" component></div>
+      <div id="example-bug" component></div>
+        
+      </div><!-- Right Column Ends -->
+      
+    </div><!-- Grid Ends -->
+</section>
+
+<--
+<h3>Other</h3>
+<ul>
+	<li><a href="https://github.dev/Blitz-Community/web/blob/main/index.html">Edit this page</a> <small>(requires a GitHub account)</small></li>
+</ul>
+-->
+
+<footer id="footer" class="w3-container w3-theme-d5" component></footer>
 
 </template>

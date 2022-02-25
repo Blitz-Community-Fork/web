@@ -5,148 +5,71 @@
 console.log( "Blitz Community Website" )
 console.log( "(c) Copyright Si Dunford, Blitz Community 2022")
 
+// Current page
+var spa = undefined
+
+//var page = undefined
+var templates = undefined
+
 // Site router
 const routes = [ 
-    { view:"home",      hash:"#home" },
-    { view:"example",   hash:"#page" },
-    { view:"somewhere", hash:"#somewhere" },
-    { view:"posts",     hash:"#post/:id" }
+    { route:"/",                    view:"home",},
+    { route:"/showcase/<language>", view:"showcase" }
 ]
-
-const COMPONENT404 = "<template><div class='error'>!ERR:{MESSAGE}</div></template>"
 
 // Launch our application
 window.onload = function( e ){ 
-    console.log( "window.onload" )
-    document.title = "Welcome - Blitz Community Website"
-    //
-    ///loadTemplate( "example" )
+    //console.log( "window.onload" )
+    document.title = "Blitz Community Website"
 
-    // Set up navigation
-//    document.addEventListener( "click", function(e) {
-//        if( e.target.matches( "[spa-link]" ) ) {
-//            e.preventDefault()
-//            navigation( e.target.href )
- //       }
-//    })
-    window.addEventListener( "hashchange", router )
-    window.addEventListener( "popstate", router )
+    // Attach page to a component
+    //templates = document.querySelector( "templates" )
 
-    // Run the page router
-    router()
-
-}
-
-// Map the route with the current URL
-function matchRoute() {
-    return routes.map( function( route ) {
-        // console.log( "- "+route.hash+" vs "+location.hash )
-        regex = new RegExp("^" + route.hash.replace(/:\w+/g, "(.+)") + "$");
-        //console.log( "REGEX: "+regex )
-        result = {
-            view:route.view,
-            hash:route.hash, 
-            result:location.hash.match( regex )
-        }
-        //console.log( "RESULT: "+result.hash+"  :  "+result.result )
-        return result
-    })
-}
-
-// Uses the querystring to identify page content
-function router() {
-    console.log( "ROUTER RUNNING:" + location.hash )
-    list = matchRoute()
-    console.log( "LIST" )
-    console.log( list )
-    match = list.find( function( route ) {
-        console.log( ">"+route.hash)
-        return route.result !== null 
-    })
-    if( !match ) {
-        match = {
-            view: routes[0].view,
-            hash: routes[0].hash,
-            result: [routes[0].hash]
-        }
+    // Check for template support in the browser
+    if( !("content" in document.createElement( "template" )) ) {
+        page.innerHTML = "Please update to a Modern Browser to use this website"
+        return
     }
-    console.log( "MATCH="+match.view+","+match.hash+","+match.result )
-    
-    // Load the page view
-    loadFile( "assets/views/"+match.view+".html", show_view, match)
+
+    // Navigation events
+    //window.addEventListener( "popstate", router )
+
+    // Initialise the single page application
+    spa = SPA( routes )
+
+    // Update the error component (with nicely formatted error boxes)
+    spa.error( '<div class="error w3-container w3-round w3-red w3-padding-16 w3-center"><i class="fa fa-bug w3-xlarge"></i><p><b>{TITLE}</b><br/>{MESSAGE}</p></div>')
+
+    // Run the SPA
+    spa.run()
+
+
 }
 
-// Called when a component is loaded
-function show_component( data, args, depth=0 ){
-    var view = new DOMParser().parseFromString( data, 'text/html' )
-    var style = view.querySelector("style")
-    var template = view.querySelector("template")
-
-    var content = document.getElementById( args.id )
-    content.removeAttribute("component");
-    content.innerHTML = ""
-    if( style ) content.appendChild( style )
-//    if( template ) content.appendChild( template.content )
-    if( template ) content.appendChild( template.content.cloneNode( true) )
-
-   // Deal with component sub-components
-    // BEWARE THIS CAN CAUSE CONTINOUS LOOP
-return
-
-/*   console.log( "COMPONENTS:")
-   var components = content.querySelectorAll( "[component]" )
-
-   console.log( "LEVEL:"+i+","+components.length )
-
-   components.forEach(element => {
-       console.log( ":"+element.id )
-
-       loadFile( "assets/components/"+element.id+".html", show_component, element )
-   });
-*/
+// Fucntion to toggle a class in the interface
+function toggleClass( id, toggle='w3-hide' ) {
+    var element = document.getElementById( id );
+    element.classList.toggle( toggle );
 }
 
-// Navigates to a new page
-function show_view( data, args ) {
-//    history.pushState( null, null, href )
-    var view = new DOMParser().parseFromString( data, 'text/html' )
-    var style = view.querySelector("style")
-    var template = view.querySelector("template")
 
-    var content = document.getElementById( "content" )
-    content.innerHTML = ""
-    if( style ) content.appendChild( style )
-    if( template ) content.appendChild( template.content )
-    //if( template ) content.appendChild( document.importNode( template, true) )
 
-    // Deal with PAGE components
 
-    console.log( "COMPONENTS:")
-    var components = document.querySelectorAll( "[component]" )
-
-    var timestamp = +new Date;
-
-    components.forEach(element => {
-        console.log( ":"+element.id )
-
-        loadFile( "assets/components/"+element.id+".html", show_component, element )
-    });
-}
 
 // Load file via XHR
-function loadFile( filename, callback, args ) {
+function loadFile( dom, filename ) {
     var xhr = new XMLHttpRequest()
     //var dom = document.getElementById( 'content' )
     
     xhr.onreadystatechange = function ( e ) { 
         if ( xhr.readyState == 4 && xhr.status == 200 ) {
-            console.log( xhr.readyState+","+xhr.status )
-            callback( xhr.responseText, args )
+            //console.log( xhr.readyState+","+xhr.status )
+            show_component( dom, xhr.responseText )
         } else if ( xhr.readyState == 4 && xhr.status == 404 ) {
-            console.log( xhr.readyState+","+xhr.status )
-            callback( COMPONENT404.replace("{MESSAGE}",filename), args )
+            //console.log( xhr.readyState+","+xhr.status )
+            show_component( dom, ERROR.replace("{MESSAGE}",filename) )
         } else {
-           console.log( xhr.readyState+","+xhr.status )
+           //console.log( xhr.readyState+","+xhr.status )
         }
     }
     
@@ -156,21 +79,4 @@ function loadFile( filename, callback, args ) {
     xhr.send()
 }
 
-// Load a template via XHR
-function loadTemplate( filename ) {
-    var xhr = new XMLHttpRequest()
-    //var dom = document.getElementById( 'content' )
-    
-    xhr.onreadystatechange = function ( e ) { 
-        if ( xhr.readyState == 4 && xhr.status == 200 ) {
-            var template = xhr.responseText
-            template = new DOMParser().parseFromString( template, 'text/html' )
-            //document.getElementById( "templates" ).appendChild( template )
-            document.head.append(template)
-        }
-    }
-    
-    xhr.open( "GET", filename, true )
-    xhr.setRequestHeader( 'Accept', 'text/html' )
-    xhr.send()
-}
+

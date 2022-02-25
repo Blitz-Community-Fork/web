@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<title>NETBAR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"/>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+<OLD link rel="stylesheet" href="w3schools/w3.css"></old>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+<script>
+
+// DEFINE GROUPS VISIBLE IN THE CURRENT HASH
+// "#" is the index page
+
+const DATA = {
+
+	"#":{
+		"Application":"Application",
+		"Devices":"Devices"
+	},
+	"LEVEL1":{
+		"LEVEL2A":{
+			"LEVEL3Aa":{
+				"Councillor":{ "uri":"https://cds.bromley.gov.uk/mgCalendarMonthView.aspx?M=12&CID=0&OT=&C=-1&MR=0&DL=0&D=1&ACT=Earlier&DD=2021" }
+			},
+			"LEVEL3Ab":{
+				"Councillor":{ "uri":"https://cds.bromley.gov.uk/mgCalendarMonthView.aspx?M=12&CID=0&OT=&C=-1&MR=0&DL=0&D=1&ACT=Earlier&DD=2021" }
+			}
+		},
+		"LEVEL2B":{
+			"LEVEL3Ba":{
+				"Councillor":{ "uri":"https://cds.bromley.gov.uk/mgCalendarMonthView.aspx?M=12&CID=0&OT=&C=-1&MR=0&DL=0&D=1&ACT=Earlier&DD=2021" }
+			},
+			"LEVEL3Bb":{
+				"Councillor":{ "uri":"https://cds.bromley.gov.uk/mgCalendarMonthView.aspx?M=12&CID=0&OT=&C=-1&MR=0&DL=0&D=1&ACT=Earlier&DD=2021" }
+			}
+		}
+	},
+	"Calendar":{
+		"Councillor":{ "uri":"https://cds.bromley.gov.uk/mgCalendarMonthView.aspx?M=12&CID=0&OT=&C=-1&MR=0&DL=0&D=1&ACT=Earlier&DD=2021" }
+	},
+	"ADSL":{
+	},
+	"Applications":{
+		"Elections.1":{		"uri":"https://api2.registertovote.service.gov.uk", "iframe":false },
+		"Elections.2":{		"uri":"https://api-canvass2.registertovote.service.gov.uk", "iframe":false },
+	},
+	"Audiocode":{
+	},
+	"Checkpoint":{
+		"SmartCenter":{		"uri":"https://172.25.220.253:4434/", 			"iframe":false },
+		"SmartEvent":{		"uri":"https://172.25.220.250:4434/", 			"iframe":false },
+		"LBBCIVSDCFW01":{	"uri":"https://172.25.220.11:4434/", 			"iframe":false },
+		"LBBCIVSDCFW02":{	"uri":"https://172.25.220.12:4434/", 			"iframe":false }
+	},
+	"Cisco":{
+		"Prime":{			"uri":"https://ciscoprime.bromley.gov.uk", 		"iframe":false },
+		"lbblxs13":{		"uri":"https://lbblxs13.int.bromley.gov.uk", 	"iframe":false },
+		"lbblxs14":{		"uri":"https://lbblxs14.int.bromley.gov.uk", 	"iframe":false },
+		"lbblxs15":{		"uri":"https://lbblxs15.int.bromley.gov.uk", 	"iframe":false },
+		"lbblxs16":{		"uri":"https://lbblxs16.int.bromley.gov.uk", 	"iframe":false },
+		"WLC":{				"uri":"https://lbb_civ_sdc_wlc.bromley.gov.uk", "iframe":false }
+	},
+	"Enviromental":{
+		"B39":{				"uri":"http://172.23.12.238/view/index.shtml", "iframe":true }
+	},
+	"F5":{
+		"LTM-01":{			"uri":"https://172.25.0.31/tmui/login.jsp", 	"iframe":false }
+	},
+	"Sonicwall":{
+		"LBBCIVSDCPFW":{	"uri":"https://lbbcivsdcpfw.bromley.gov.uk", 	"iframe":false }
+	},
+	"UPS":{
+	},
+	"Webcams":{
+	}
+	
+}
+
+var frame
+window.addEventListener('load', onLoad, false )
+
+var app = undefined
+
+function onLoad(){
+
+	console.log( "ONLOAD" )
+	
+	frame = document.getElementById("frame")
+	
+	// Parse querystring to see if we will utilise an iframe
+	const queryString = window.location.search
+	const urlParams = new URLSearchParams(queryString)
+	const name = urlParams.get('name')
+	const uri = urlParams.get('uri')
+	if( name!=null && uri!=null ){
+		// Add content to an iframe
+		window.top.document.title = name
+		frame.src=uri
+	} else {
+		// No iframe, just a plain old page!
+		//frame.innerHTML = "<h2>Welcome</h2>"
+	}
+	
+	// Create a NAVBAR
+	const navbar = document.getElementById("navbar")
+
+	for( var key in DATA) {
+		//console.log( key+":"+DATA[key])
+		// Create dropdown container
+		var dropdown = document.createElement( "div" )
+		dropdown.className = "w3-dropdown-hover"
+		navbar.appendChild( dropdown )
+		// Add button to dropdown
+		var btn = document.createElement( "button" )
+		btn.className = "w3-button"
+		btn.innerText = key
+		dropdown.appendChild( btn )
+		// Add dropdown menu
+		var menu = document.createElement( "div" )
+		menu.className = "w3-dropdown-content w3-bar-block w3-card-4"
+		dropdown.appendChild( menu )
+		// Add menu options
+		var options = DATA[key]
+		for( var option in options ) {
+			//console.log( option ) //+":"+DATA[key][option]
+			var link = document.createElement( "a" )
+			link.className = "w3-bar-item w3-button" 
+			link.target = option
+			link.innerText = option
+			//console.log( DATA[key][option]["uri"] )
+			
+			if( DATA[key][option]["iframe"]==true ) {
+				//console.log( "SUPPORTS IFRAME" )
+				link.href = "?name="+option+"&uri="+DATA[key][option]["uri"]
+			} else {
+				//console.log( "NO IFRAME SUPPORT" )
+				link.href = DATA[key][option]["uri"]
+			}
+			
+			menu.appendChild( link )
+		}
+	}
+
+	// SPA VERSION
+	
+	//window.addEventListener( "hashchange", function(){
+	//	console.log( "HASHCHANGE" )
+	//	route()
+	//})
+
+	// Load data
+	//loadFile( "devices.json", loadData )
+	app = SPA()
+
+	console.log( "MANUAL ROUTES - START" )
+	
+	app.addRoute( "/", homepage )	// GET
+//	app.addRoute( "/group/<id>", dummy )
+//	app.addRoute( "/test/:<id>", dummy )
+//	app.addRoute( "/test/*", dummy )
+	app.addRoute( "/country/<country>/<county>", country )
+	
+	//console.log( "ROUTES.1:" )
+	//app.reveal()
+	
+	//app.addRoute( "/", dummy, "POST" )
+	//app.addRoute( "/test", dummy, ["POST","GET"] )
+	
+	//console.log( "ROUTES.2:" )
+	//app.reveal()
+	
+	//app.removeRoute( "/test" )	// GET
+	//app.removeRoute( "/xyz" )	// GET
+	//app.reveal()
+	
+	//app.removeRoute( "/", "POST" )
+	//app.removeRoute( "/test", "POST" )
+	//app.reveal()
+
+	console.log( "MANUAL ROUTES - DONE" )
+	
+	//app.route.add( "/device/<id>", dummy )
+	//app.route.add( "/device/<hostname>/<action>", dummy )
+
+	// Build the page
+	app.navigate()
+
+}
+
+var Page = {}
+
+const ROUTES = {
+	"/":{ page:"home" }
+}
+
+function dummy( request ){
+	switch( request.method ) {
+	case "POST":
+		console.log( "DUMMY - request - POST" )
+		
+		var user = request.form[ "name" ]
+		break
+	case "GET":
+		console.log( "DUMMY - request - GET" )
+		return // redirect( urlfor( "dashboard" ) )
+		break
+	}
+}
+
+function homepage( request ){
+	console.log( "#####> homepage - "+ request.method )
+}
+
+function country( request ){
+	console.log( "#####> country - "+ request.method )
+	console.log( request.args["country"] )
+	console.log( request.args["county"] )
+}
+
+
+function route( destination ) {
+	Page.hash = ( (location.hash == "") ? '#' : location.hash )
+	console.log( "HASH: "+Page.hash )
+	console.log( "QS: "+location.queryString )
+	
+	// Use REGEX to identify which route to use
+	const regex = new RegExp( "^(#([a-zA-Z0-9\/].*))?(:([a-zA-Z]))?(.*)?$" )
+	
+	for( var route in ROUTES ){
+		var match = regex.exec( Page.hash )
+		if( match ) {
+			console.log( "--------"+match.length )
+			for( var i=0; i<match.length; i++ ){
+				console.log( "i="+i+":  "+ match[i] )
+			}
+		}
+	}
+	
+	console.log( "404 not found" )
+	//lookup = pagehash.split("/")
+	//console.log( "DEPTH: "+ lookup.length )
+	//navigate( DATA, lookup )
+	//buildPage( DATA[lookup] )
+}
+
+/*
+function navigate( data, destination="" ) {
+	console.log( "Nav Search "+destination+"/"+data )
+	console.log( "- size:"+destination.length )
+	console.log( "- zero:"+destination[0] )
+	if( destination.length == 1 & destination[0] == "" ){
+		<!-- Index page -->
+		console.log( "- INDEX PAGE" )
+		buildPage( data )
+	} else if( destination[0] == undefined ){
+		console.log( "- ZEROis null" )
+		buildPage( data )	
+	} else if( destination[0] in data ) {
+		console.log( "  - IN PATH" )
+		var child = destination.shift()
+		navigate( data[child], destination )
+	} else {
+		console.log( "  - NOT IN PATH" )
+	}
+}
+*/
+
+function buildPage( content ) {
+
+	console.log( "BUILDPAGE STARTED" )
+
+	var dom = document.getElementById( "content" )
+	dom.innerHTML = ""
+	
+	for( var key in content ){
+		const template = document.querySelector( 'template[id="card"]' )
+		const clone = template.content.cloneNode( true )
+
+		//var text = clone.querySelector( 'div[class="w3-container"] p' )
+		var item
+		item = clone.querySelector( 'a' )
+		if( item ) { item.href="#"+key }
+		item = clone.querySelector( 'p' )
+		if( item ) { item.innerHTML = item.innerHTML.replace( "{TITLE}", key ) }
+		item = clone.querySelector( 'img' )
+		if( item ) { 
+			item.setAttribute( "src", "img/logo-"+key+".png" )
+			//item.setAttribute( "alt", key )
+		}
+		
+		dom.appendChild(clone)
+	}
+
+}
+function loadData( data ){
+	if( data ) {
+		console.log( "Data loaded" )
+		buildPage( data )
+	} else {
+		console.log( "Failed to load data" )
+	}
+}
+
+// THIS WILL ONLY WORK WITH HTTP - NOT FILE
+function loadFile( path, callback ) {
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            // The request is done; did it work?
+            if (xhr.status == 200) {
+                // ***Yes, use `xhr.responseText` here***
+                callback(xhr.responseText)
+            } else {
+                // ***No, tell the callback the call failed***
+                callback(null)
+            }
+        }
+    }
+    xhr.open( "GET", path )
+	xhr.setRequestHeader( "Accept", "text/plain" )
+	//xhr.setRequestHeader( "Cache-Control", "max-age=0" )
+    xhr.send()
+}
+
+class Router {
+
+	constructor( initial ){
+		console.log( "Router.constructor()" )
+		this.routes = {}
+		//console.log( "  "+ JSON.stringify(this.routes) )
+		for( var route in initial ){
+			this.add( route, initial[route] )
+		}
+		// Handle links and form submissions
+		window.addEventListener( "hashchange", this.hashChange.bind(this) )
+		console.log( "  "+ JSON.stringify(this.routes) )
+	}
+	
+	// Called when the page has changes
+	hashChange() {
+		console.log( "HAS CHANGE EVENT = "+location.hash )
+		
+		// Navigate
+		this.navigate( location.hash, "GET" )
+		
+	}
+	
+	// Returns the current has without leading "#"
+	location( url=location.hash ) {
+		return url.setstrng(1)
+	}
+
+	// Adds a route
+	add( pattern, callback, methods="GET" ){
+//		route = route.toLowerCase()
+//		if( !this.routes[route] ) { this.routes[route]={} }
+//		if( !this.routes[route][method] ) { 
+//			this.routes[route][method] = callback
+//		}
+
+		console.log( "Router.add()" )
+		console.log( "  pattern="+pattern )
+		console.log( "  methods="+methods )
+		//console.log( "  callback="+callback )
+		//console.log( "  "+ JSON.stringify(this.routes) )
+		//
+		if( this.routes[pattern] ){
+			// Update a route
+			var route = this.routes[pattern]
+			route.add( callback, methods )
+		} else {
+			// Add a route
+			var route = new Route( pattern, callback, methods )
+			this.routes[ pattern ] = route	
+		}
+	}
+	
+	// Remove a route
+	remove( pattern, methods="GET" ){
+		//route = route.toLowerCase()
+		if( this.routes[pattern] ) { 
+			var route = this.routes[pattern]
+			route.remove( methods )
+			console.log( route.countMethods() )
+			if( route.countMethods() == 0 ) {
+				delete this.routes[pattern]
+			}
+		}
+		// Clean up empty object
+		//if( Object.keys( this.routes[route] ).length == 0 ) {
+		//	delete this.routes[route] 
+		//}
+	}
+	
+	// Navigate to a specified hash
+	navigate( hash=location.hash, method="GET" ) {
+		var url = hash
+		// Remove leading hash symbol
+		if( url.charAt(0)=="#" ) { url = url.substring(1) }
+		if( url == '' ) { url = "/" }
+console.log( "NAVIGATING TO: '"+hash+"' ["+method+"]" )
+console.log( " url="+url )
+		
+console.log( "MATCHING:" )
+		for( var pattern in this.routes ){
+console.log( "  Pattern: "+pattern )
+			var route = this.routes[pattern]
+			var request = route.match( url, method )
+			if( request ){
+//console.log( "  - "+JSON.stringify( request ) )
+console.log( "  - Matches" )
+				var callback = request["callback"]
+				callback( request )
+				break
+			} else {
+console.log( "  - No match" )
+			}
+		}
+		
+	}
+	
+	// Method to debug
+	reveal() {
+		console.log( "REVEAL - start" )
+		for( var pattern in this.routes ){
+			var route = this.routes[pattern]
+			for( var method in route.callbacks ){
+				console.log( pattern + " [" + method + "]" )
+			}
+		}
+		console.log( "REVEAL - done" )
+	}
+}
+
+// An individual route held in the Router
+class Route {
+
+	constructor( pattern, callback, methods=["GET","POST"] ) {
+		console.log( "Route.constructor()" )
+		//console.log( "  Methods "+methods )
+
+		//this.pattern = pattern
+		this.callbacks = {}
+		this.params = [""]	// First element (0) is null to allow lookup
+
+		// Add methods
+		this.add( callback, methods )
+	
+		// Identify parameters <NAME>
+		
+		var matches = pattern.match( /(<\w+>)/g )
+		//this.params = ( this.params == null ? [] : Array.from( this.params ) )
+		// Strip &gt; and &lt; symbols from params
+		for( var match in matches ){
+			var param = matches[match]
+			this.params.push( param.replace( /<(.*)>/g, "\$1" ) )
+		}
+		console.log( "  NAMES: "+this.params )
+			
+		// Create Regex to extract params
+		pattern = "^"+pattern+"$"
+		pattern = pattern.replace( /(<\w+>)/g, "([^\/]+)" )
+		console.log( "  REGEX: "+pattern )
+		this.regex = new RegExp( pattern )		
+	}
+	
+	add( callback, methods ){
+		// methods should be an arry, but support string:
+		methods = ( Array.isArray( methods ) ? methods : [methods] )
+		
+		// Callback handlers
+		for( var i in methods ){
+			var method = methods[i]
+			this.callbacks[ method.toUpperCase() ] = callback
+		}
+	}
+	
+	remove( methods ){
+		// methods should be an arry, but support string:
+		methods = ( Array.isArray( methods ) ? methods : [methods] )
+
+		// Callback handlers
+		for( var i in methods ){
+			var method = methods[i]
+			if( this.callbacks[ method.toUpperCase() ] ){
+				delete( this.callbacks[ method.toUpperCase() ] )
+			}
+		}
+	}
+	
+	countMethods() {
+		return Object.keys( this.callbacks ).length
+	}
+	
+	match( url, method ){
+		console.log( "    Route Matching '"+url+"'" )
+		var result = this.regex.exec( url )
+		//console.log( "    "+typeof(result) )
+		//console.log( "    "+Object.prototype.toString.call(result) )
+		//console.log( "    "+result+", "+JSON.stringify( result ) )
+		//console.log( "    "+this.params )
+		//console.log( "    "+Object.prototype.toString.call(this.params) )
+		if( result ) {
+			var request = { 
+				args:{},
+				callback:this.callbacks[method],
+				method:method,
+			}
+			// Generate arguments list
+			if( this.params.length>1 ) {		
+				for( var i=1; i<this.params.length; i++ ) {
+					console.log( i + ","+this.params[i]+", "+result[i] )
+					request.args[ this.params[i] ] = result[i]
+				}
+			}
+			console.log( request )
+			return request
+		} else {
+			return null
+		}
+	}
+	
+	callback( method ){
+		return this.callbacks( method )
+	}
+	
+}
+
+function SPA(){
+	return new SinglePageApplication()
+}
+class SinglePageApplication{
+
+	constructor(){
+		this.router = new Router()
+	}
+
+	navigate( hash, method ){
+		this.router.navigate( hash, method )
+	}
+	
+	addRoute( pattern, callback, methods="GET" ){
+		this.router.add( pattern, callback, methods )
+	}
+
+	removeRoute( pattern, methods="GET" ){
+		this.router.remove( pattern, methods )
+	}
+
+	reveal() {
+		this.router.reveal()
+	}
+}
+
+</script>
+<style>
+#frame {
+	width:100%;
+	height:100%;
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation bar -->
+<ul class="w3-navbar w3-light-grey w3-border w3-large">
+  <li><a class="w3-green" href="#"><i class="fa fa-home w3-large"></i>&nbsp;Network</a></li>
+  <li><a href="#"><i class="fa fa-search w3-large"></i></a></li>
+  <li><a href="#"><i class="fa fa-envelope w3-large"></i></a></li>
+  <li><a href="#"><i class="fa fa-globe w3-large"></i></a></li>
+  <li><a href="#"><i class="fa fa-sign-in w3-large"></i></a></li>
+</ul>
+
+<div id="navbar" class="w3-bar w3-light-grey">
+  <!-- Static links -->
+  <a href="#" class="w3-bar-item w3-button">Home</a>
+  <!-- This is populated by javascript -->
+</div>
+
+
+
+<div><iframe id="frame" src="" title="content"></iframe></div>
+
+<div class="w3-container">
+	<div id="content" class="w3-row-padding"></div>
+</div>
+<template id="card">
+<div class="w3-col s3">
+	<a href="#">
+	<div class="w3-card-2">
+	<img src="img/logo-missing.png" style="height:48px;width:48px;padding:4px;" class="w3-left" onError="this.src='img/logo-missing.png'">
+	<div class="w3-container w3-center">
+		<p>{TITLE}</p>
+	</div>
+	</div>
+	</a>
+	<br/>
+</div>
+</template>
+
+</body>
+</html>

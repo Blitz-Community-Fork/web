@@ -1,58 +1,73 @@
-<style>
-header {
-    background-color: var(--Primary);
-    background-image: url("assets/img/logo.png");
-    background-repeat: no-repeat;
-    background-position: left 5px top 5px;
-    color: var(--OnPrimary);
-    margin-bottom: 25px;
-    height:100px;
-}
-header #title {
-    padding-left: 100px;
-    height: 48px;
-    line-height:48px;
-    color: var(--OnPrimary);
-}
-header ul {
-    background-color: var(--PrimaryVariant);
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    margin-left: 100px;
-}
-header li {
-  float: left;
-}
-li a, li img {
-    display: block;
-    color: var(--OnPrimary);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-header li a:hover {
-    background-color: var(--Secondary);
-}
-header .right {
-    float:right;
-}
-</style>
-
 <template>
-<h4 id="title">Blitz Community</h4>
-<nav id="navbar">
-<ul>
-    <li></li>
-    <li><a href="test.html">Home</a></li>
-    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/wiki">Wiki</a></li>
-    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/blob/main/code%20archive">Code archive</a></li>
-    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/discussions">Discussions board</a></li>
-    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/discussions/categories/tutorials">Tutorials</a></li>
-    <li><a target="_blank" href="https://github.com/Blitz-Community/blitzmax/discussions/categories/worklogs">Worklogs</a></li>
-    <li><a target="_blank" href="https://blitzmax.org/" rel="nofollow">Official website</a></li>
-    <li class="right"><a href="#about">About</a></li>
-</ul>
-</nav>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+     <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Blitz Community</a>
+     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
+     <div class="w3-dropdown-hover w3-hide-small">
+       <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>     
+       <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+         <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+         <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+         <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+       </div>
+     </div>
+     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+       <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+     </a>
+    </div>
+
+<!--Subheading START-->
+<div class="w3-bar w3-theme-d3 w3-left-align w3-large">
+
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="BlitzBasic">BlitzBasic</i></a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="Blitz3D">Blitz3D</a>
+    <div class="w3-dropdown-hover">
+        <a href="#/blitzmax" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="BlitzMax">BlitzMax</a>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a href="#/blitzmax" class="w3-bar-item w3-button-2 w3-hide-small w3-padding-medium w3-hover-white" title="BlitzMax">BlitzMax</a>
+            <div class="w3-bar-item">Generation 2<p>Open Source<br>No longer maintained</p></div>
+            <a class="w3-bar-item w3-button" target="_blank" href="https://discord.gg/yVxkBybBsY" rel="nofollow">Discord</a>
+            <a class="w3-bar-item w3-button" href='#/showcase/blitzmax'>Showcase</a>
+        </div>
+    </div>
+
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="Monkey">Monkey</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="Monkey2">Monkey2</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="Cerberus-X">Cerberus-X</a>
+    <div class="w3-dropdown-hover">
+        <a href="#/blitzmaxng" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="BlitzMax-NG">BlitzMax-NG</a>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a href="#/blitzmaxng" class="w3-bar-item w3-button-2 w3-hide-small w3-padding-medium w3-hover-white" title="BlitzMax-NG">BlitzMax-NG</a>
+            <div class="w3-bar-item">Generation 3<p>Open Source and maintained by the community</p></div>
+            <a class="w3-bar-item w3-button" target="_blank" href="https://discord.gg/yVxkBybBsY" rel="nofollow">Discord</a>
+            <a class="w3-bar-item w3-button" href='#/showcase/blitzmaxng'>Showcase</a>
+        </div>
+    </div>
+    <div class="w3-dropdown-hover">
+        <a href="#/wonkey" class="w3-bar-item w3-button w3-hide-small w3-padding-medium w3-hover-white" title="Wonkey">Wonkey</a>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a href="#/wonkey" class="w3-bar-item w3-button-2 w3-hide-small w3-padding-medium w3-hover-white" title="Wonkey">Wonkey</a>
+            <div class="w3-bar-item">Generation 3<p>Open Source and maintained by the community</p></div>
+            <a class="w3-bar-item w3-button" target="_blank" href="https://discord.com/channels/796336780302876683/796336780302876686" rel="nofollow">Discord</a>
+            <a class="w3-bar-item w3-button" href='#/showcase/wonkey'>Showcase</a>
+        </div>
+    </div>
+
+</div><!--Subheading END-->
+</div>
+   
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+     <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+</div>
+
 </template>

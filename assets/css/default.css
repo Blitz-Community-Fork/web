@@ -4,13 +4,14 @@
 
 html,body {
 	height: 100%;
-	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
     background-color: var(--Background);
     margin:0;
     padding:0;
 }
+
+html, body, h1, h2, h3, h4, h5, h6 {font-family: "Open Sans", sans-serif}
 
 h1,h2,h3,h4,h5,h6 {
 	margin: 0;
@@ -50,13 +51,8 @@ ul,ol {
 	margin: 0;
 }
 
-/* Theme colours */
-
-
-.error {
-    padding:4px;
-    background-color: var(--Error);
-    color: var(--OnError);
+/* container used for component loading */
+templates {
+	display:none;
 }
-
 

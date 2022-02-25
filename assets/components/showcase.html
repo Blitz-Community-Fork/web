@@ -1,77 +1,33 @@
-<style>
-#showcase { 
-
-}
-#showcase .column {
-    float: left;
-    width: 50%;
-}
-#showcase .row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-@media screen and (max-width: 600px) {
-    #showcase .column {
-        width: 100%;
-    }
-}
-</style>
 
 <template>
+
+<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+    <img class="Slide" src="showcase/tvtower.jpg" style="width:100%">
+    <img class="Slide" src="showcase/genusprime.png" style="width:100%">
+    <img class="Slide" src="showcase/trickorsweets.jpg" style="width:100%">
+    <img class="Slide" src="showcase/daydreammosaic.jpg" style="width:100%">
+</div>
+
+<script src="{PATH}/showcase.js">
+
 <script>
-console.log( "LOADING SLIDESHOW" )
-loadFile( "slideshow/database", slides )
+// Automatic Slideshow - change image every 3 seconds
 
-function slides( data ) {
-    console.log( data )
+console.log( "LOADING SHOWCASE" )
+
+function carousel() {
+    console.log( "Running carousel")
+    var slides = document.getElementsByClassName( "Slide" )
+    for( var i = 0; i < slides.length; i++ ) {
+        console.log( i )
+        slides[i].style.display = "none"
+    }
+    this.index ++
+    if( this.index > slides.length ) { this.index = 1 }
+    slides[ this.index-1 ].style.display = "block"
+    this.timer = setTimeout( this.carousel, 3000 )
 }
+carousel()
 </script>
-
-<section id="showcase" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-  
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-
-        <div class="carousel-item active">
-            <div class="row">
-                <div class="column">
-                    <img src="showcase/tvtower.jpg" alt="TV Tower"/>
-                </div>
-                <div class="column">
-                    <h1>TV Tower</h1>
-                    <p>Some blurb goes here</p>
-                    <a href="#">LINK TO DOWNLOAD</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="carousel-item">
-            <img src="geniusprime.jpg" alt="Genius Prime">
-            <div class="showcase/carousel-caption">
-                <h3>Genius Prime</h3>
-                <p>Description here</p>
-            </div>
-        </div>
-
-        <div class="carousel-item">
-            <img src="trickorsweets.jpg" alt="Trick or Sweets">
-            <div class="showcase/carousel-caption">
-                <h3>Trick or Sweets</h3>
-                <p>Description here</p>
-            </div>
-        </div>
-
-        <div class="carousel-item">
-            <img src="daydreammosaic.jpg" alt="Day Dream Mosaic">
-            <div class="carousel-caption">
-                <h3>Day Dream Mosaic</h3>
-                <p>Description here</p>
-            </div>
-        </div>
-
-    </div>
-
-</section>
 
 </template>
